@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Blooms</title>
+    <style>
+        @font-face {
+            font-family: 'NanumMyeongjo';
+            src: url("../static/fonts/NanumMyeongjo.otf") format("truetype");
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'NanumMyeongjo', 'Arial Rounded MT Bold', sans-serif;
+            background-image: url('/static/Thumbnail.png');
+            background-size: 100%;
+            background-position: top, center;
+            text-align: center;
+            margin: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            gap: 50px;
+            justify-content: flex-start;
+            align-items: flex-start;
+            width: 100%;
+            padding-top: 100px;
+        }
+
+        .container {
+            width: 35%;
+            margin-top: 200px;
+            margin-left: 150px;
+            max-width: 350px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .result {
+            width: 65%;
+            max-width: 500px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 80px;
+            gap: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        .input-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        }
+
+        label {
+            width: 120px;
+            text-align: right;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 140px;
+            padding: 6px;
+            border-radius: 10px;
+            border: none;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 3px;
+            margin-left: 143px;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 10px;
+            background-color: lightgray;
+            cursor: pointer;
+            font-family: 'NanumMyeongjo', 'Arial Rounded MT Bold', sans-serif;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        .result .images {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .result .title {
+            width: 100%;
+            margin-left: 170px;
+        }
+
+        .download {
+            width: 100%;
+            margin-left: 378px;
+        }
+
+        .download a {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <form method="POST">
+                <div class="input-row">
+                <label>Sepal Length:</label>
+                <input type="number" step="0.01" name="sepal_length" required>
+                </div>
+                <div class="input-row">
+                <label>Sepal Width:</label>
+                <input type="number" step="0.01" name="sepal_width" required>
+                </div>
+                <div class="input-row">
+                <label>Petal Length:</label>
+                <input type="number" step="0.01" name="petal_length" required>
+                </div>
+                <div class="input-row">
+                <label>Petal Width:</label>
+                <input type="number" step="0.01" name="petal_width" required>
+                </div>
+                <br>
+                <button type="submit">Predicting</button>
+            </form>
+        </div>
+
+        {% if prediction %}
+        <div class="result">
+            <h2 class="title">Iris Type Prediction Results: {{ prediction }}</h2>
+            <div class="images">
+                <img src="{{ img_url }}" alt="result_flower" height="300">
+                <img src="data:image/png;base64,{{ plot_url }}" alt="KNN Plot" height="300">
+            </div>
+            <div class="download">
+                <a href="/download_model">💾Download the KNN Model Used</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
